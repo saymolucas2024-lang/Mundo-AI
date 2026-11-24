@@ -13,7 +13,7 @@ const fronts=[];for(let bi=0;bi<4;bi++)for(let bj=0;bj<4;bj++)for(const [a,b] of
 const co=new Map(),addOwner=(h,hi)=>{const c=city(hi);if(!co.has(c))co.set(c,[]);co.get(c).push(h)};
 for(const [h,r] of Object.entries(db.players))addOwner(h,r.hi);
 const MIS=[{id:'emoji',t:'Mande emoji ou campainha a 5 pessoas diferentes',n:5,r:20},{id:'visit',t:'Visite 3 casas diferentes',n:3,r:30},{id:'say',t:'Converse: envie 5 mensagens',n:5,r:15},{id:'give',t:'Doe 1 ponto ao hospital',n:1,r:25},{id:'rec',t:'Grave um vídeo de 10 segundos',n:1,r:40}];
-const MAX_DEV=+process.env.MAX_ACCOUNTS_PER_DEVICE||2,MAX_IP_NEW=+process.env.MAX_NEW_ACCOUNTS_PER_IP_DAY||5,MAX_OUT=+process.env.MAX_PAYOUT_COINS||5000,MIN_AGE_H=+process.env.MIN_ACCOUNT_AGE_HOURS||24,ipNew=new Map();
+const MAX_DEV=+process.env.MAX_ACCOUNTS_PER_DEVICE||10,MAX_IP_NEW=+process.env.MAX_NEW_ACCOUNTS_PER_IP_DAY||5,MAX_OUT=+process.env.MAX_PAYOUT_COINS||5000,MIN_AGE_H=+process.env.MIN_ACCOUNT_AGE_HOURS||24,ipNew=new Map();
 const today=()=>new Date().toISOString().slice(0,10);
 const daily=r=>r.m&&r.m.day===today()?r.m:(r.m={day:today(),p:{},done:{},seen:[]});
 const push=(ws,r)=>{const m=daily(r);out(ws,{t:'mis',coins:r.coins||0,list:MIS.map(d=>({t:d.t,n:d.n,r:d.r,p:Math.min(d.n,m.p[d.id]||0),done:!!m.done[d.id]}))})};
